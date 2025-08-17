@@ -1,0 +1,28 @@
+apiVersion: skaffold/v4beta6
+kind: Config
+metadata:
+  name: todo-app
+build:
+  artifacts:
+    - image: gcr.io/YOUR_PROJECT_ID/todo-app
+      context: .
+      docker:
+        dockerfile: Dockerfile
+  tagPolicy:
+    sha256: {}
+deploy:
+  cloudrun:
+    projectId: YOUR_PROJECT_ID
+    region: us-central1
+    serviceName: todo-app
+    manifest:
+      rawYaml:
+        - cloudrun-service.yaml
+manifests:
+  rawYaml:
+    - cloudrun-service.yaml
+
+# Notes:
+# - Replace YOUR_PROJECT_ID with your actual GCP project ID.
+# - Skaffold will substitute the image name in cloudrun-service.yaml automatically.
+# - Use `skaffold run` to build, push, and deploy to Cloud Run.

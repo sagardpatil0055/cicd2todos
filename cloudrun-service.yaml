@@ -1,0 +1,27 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: todo-app
+  namespace: default
+spec:
+  template:
+    spec:
+      containers:
+        - image: gcr.io/$PROJECT_ID/todo-app:$SHORT_SHA
+          env:
+            - name: DB_HOST
+              value: /cloudsql/$PROJECT_ID:us-central1:db1
+            - name: DB_USER
+              value: app
+            - name: DB_PASSWORD
+              value: Secret@123
+            - name: DB_NAME
+              value: todos
+      containerConcurrency: 80
+      timeoutSeconds: 300
+      serviceAccountName: 951228592843-compute@developer.gserviceaccount.com
+      # Cloud SQL instance binding
+      # This annotation is required for Cloud SQL Auth Proxy
+      # Replace with your actual instance connection name
+      annotations:
+        run.googleapis.com/cloudsql-instances: $PROJECT_ID:us-central1:db1
