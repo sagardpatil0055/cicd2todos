@@ -18,13 +18,13 @@ steps:
       - "--image"
       - "gcr.io/$PROJECT_ID/todo-app:$SHORT_SHA"
       - "--region"
-      - "asia-south1"
+      - "us-central1"
       - "--platform"
       - "managed"
       - "--add-cloudsql-instances"
       - "db1"
       - "--set-env-vars"
-      - "DB_HOST=/cloudsql/$PROJECT_ID:asia-south1:db1,DB_USER=app,DB_PASSWORD=Secret@123,DB_NAME=todos"
+      - "DB_HOST=/cloudsql/$PROJECT_ID:us-central1:db1,DB_USER=app,DB_PASSWORD=Secret@123,DB_NAME=todos"
 images:
   - "gcr.io/$PROJECT_ID/todo-app:$SHORT_SHA"
 
